@@ -228,5 +228,30 @@ exports['optional text input'] = function(test){
         '<input type="text" name="field1" id="id_field1" class="one two"' + 
         ' placeholder="Enter some comment" data-trigger="focus" aria-required="false" />'
     );
+    test.equals(
+        forms.widgets.text({
+            placeholder: 'Enter some comment',
+            unknown: 'foo'
+        }).toHTML('field1'),
+        '<input type="text" name="field1" id="id_field1"' +
+        ' placeholder="Enter some comment" />'
+    );
+    test.equals(
+        forms.widgets.text({
+            min: '5',
+            max: '10',
+            unknown: 'foo',
+            autocomplete: 'on'
+        }).toHTML('field1'),
+        '<input type="text" name="field1" id="id_field1"' +
+        ' min="5" max="10" autocomplete="on" />'
+    );
+    test.equals(
+        forms.widgets.text({
+            placeholder: 'Enter "some" comment'
+        }).toHTML('field1'),
+        '<input type="text" name="field1" id="id_field1"' +
+        ' placeholder="Enter &quot;some&quot; comment" />'
+    );
     test.done();
 };

@@ -18,7 +18,7 @@ var template = jsontemplate.Template(
 );
 
 var inputWithOptionalAttributes = forms.widgets.text({
-    placeholder: 'Where do you work?',
+    placeholder: 'Where do you "work"?',
     'data-toggle': 'focus'
 });
 
