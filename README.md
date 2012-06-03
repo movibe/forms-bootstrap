@@ -1,100 +1,87 @@
+
 # Forms
 
-Constructing a good form by hand is a lot of work. Popular frameworks like
-Ruby on Rails and Django contain code to make this process less painful.
-This module is an attempt to provide the same sort of helpers for node.js.
+Constructing forms by hand is a lot of work. Popular frameworks like
+Ruby on Rails and Django contain code to make this process easier.
+This module is an attempt to provide the same sort of helpers for node.js 
+and express, with the default bootstrap twitter rendering.
 
-    npm install forms
-
-## Contribute
-
-This code is still in its infancy, and I'd really appreciate any contributions,
-bug reports, or advice. Especially on the following key areas:
-
-* __Creating sensible default rendering functions that generate flexible,
-  accessible markup__. This is an early priority because without being
-  confident that the standard markup won't change under their feet, developers
-  will not be able to adopt the module for any sort of production use.
-* __Exploring write-once validation that works on the client and the server__.
-  There are some unique advantages to using the same language at both ends,
-  let's try and make the most of it!
-* __Ensuring it's easy to use with existing node web frameworks__. Ideally this
-  module would integrate well with projects using any of the popular frameworks.
-### Contributors
-
-* [luddep](http://github.com/luddep)
-* [jedp](https://github.com/jedp)
-* [ljharb](https://github.com/ljharb)
 
 
 ## Example
 
-Creating an example registration form:
+Creating an example registration form (in CoffeeScript):
 
-    var forms = require('forms'),
-        fields = forms.fields,
-        validators = forms.validators;
+    forms = require 'forms-bootstrap'
 
-    var reg_form = forms.create({
-        username: fields.string({required: true}),
-        password: fields.password({required: true}),
-        confirm:  fields.password({
-            required: true,
-            validators: [validators.matchField('password')]
-        }),
-        email: fields.email()
-    });
+    myform = forms.create
+        name: forms.fields.string
+            required: true
+            widget: forms.widgets.text
+                placeholder: 'Your full name'
+                classes: ['span5']
+        address: forms.fields.string
+            widget: forms.widgets.textarea
+                rows: 3
+        website: forms.fields.url()
+        email: forms.fields.email()
 
-Rendering a HTML representation of the form:
-
-    reg_form.toHTML();
-
-Would produce:
-
-    <div class="field required">
-        <label for="id_username">Username</label>
-        <input type="text" name="username" id="id_username" value="test" />
-    </div>
-    <div class="field required">
-        <label for="id_password">Password</label>
-        <input type="password" name="password" id="id_password" value="test" />
-    </div>
-    <div class="field required">
-        <label for="id_confirm">Confirm</label>
-        <input type="password" name="confirm" id="id_confirm" value="test" />
-    </div>
-    <div class="field">
-        <label for="id_email">Email</label>
-        <input type="text" name="email" id="id_email" />
-    </div>
-
-You'll notice you have to provide your own form tags and submit button, its
-more flexible this way ;)
 
 Handling a request:
 
-    function myView(req, res) {
+    app.post '/user/register', (req, res) ->
+        myform.handle req.body,
+            success: (form) ->
+                # do something with the data
+                console.log form.data.name
+            error: (form) ->
+                # handle the error, by re-rendering the form again
+                res.render 'user/register', form: form.toHTML()
 
-        reg_form.handle(req, {
-            success: function (form) {
-                // there is a request and the form is valid
-                // form.data contains the submitted data
-            },
-            error: function (form) {
-                // the data in the request didn't validate,
-                // calling form.toHTML() again will render the error messages
-            },
-            empty: function (form) {
-                // there was no form data in the request
-            }
-        });
 
-    }
+And this is how your user/register.jade template might look like:
 
-That's it! For more detailed / working examples look in the example folder.
-An example server using the form above can be run by doing:
+    // Your initial stuff, headers and all go here
+    .container
+        .row
+            .span10
+                h2 New Dive Club registration
+                form(action='/user/register', method='POST').form-horizontal.well
+                    != form
+                    #submit
+                    input(type='submit', value='Create').btn.btn-large
 
-    node example/simple.js
+
+That's it. For more details and working examples look in the example folder 
+(but not now - this folder has not been updated yet ;)
+
+
+# How to install
+
+    npm install forms-bootstrap
+
+    Status: 
+        * development/experimental (do not use in production)
+        * examples are not ported yet, not tested
+        * all tests seem to pass
+
+
+# Contribute
+
+This module has been derived from two other modules,
+and all credits go to original project owners and contributors:
+
+ * original work by coalan, https://github.com/caolan/forms
+ * bootstrap extension by caulagi, https://github.com/caulagi/forms
+
+Please contribute to the original projects with generic patches.
+For bootstrap-specific extensions or features feel free to fork us. 
+Your pull-requests warmly welcomed. 
+
+
+
+# Details
+
 
 ## Available types
 
@@ -290,3 +277,4 @@ valid or with an error message if the field is invalid.
 
 A function which accepts a name and field as arguments and returns a string
 containing a HTML representation of the field.
+
