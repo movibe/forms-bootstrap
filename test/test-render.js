@@ -55,12 +55,11 @@ var testWrap = function(tag){
         f.bind({field_name: 'val'}).validate(function(err, f){
             test.equals(
                 f.toHTML(forms.render[tag]),
-                '<' + tag + ' class="field error">' +
-                    '<p class="error_msg">validation error</p>' +
-                    '<label for="id_field_name">Field name</label>' +
-                    '<input type="text" name="field_name" id="id_field_name" ' +
-                    'value="val" />' +
-                '</' + tag + '>'
+                  '<' + tag + ' class="field error">'
+                +   '<span class="help-inline">validation error</span>'
+                +   '<label for="id_field_name">Field name</label>'
+                +   '<input type="text" name="field_name" id="id_field_name" value="val" />'
+                + '</' + tag + '>'
             );
         });
         setTimeout(test.done, 25);
@@ -207,9 +206,9 @@ exports['table bound error'] = function(test){
             '<tr class="field error">' +
                 '<th><label for="id_field_name">Field name</label></th>' +
                 '<td>' +
-                    '<p class="error_msg">validation error</p>' +
                     '<input type="text" name="field_name"' +
                     ' id="id_field_name" value="val" />' +
+                    '<span class="help-inline">validation error</span>' +
                 '</td>' +
             '</tr>'
         );
@@ -217,119 +216,3 @@ exports['table bound error'] = function(test){
     setTimeout(test.done, 25);
 };
 
-exports['bootstrap'] = function(test){
-    var f = forms.create({
-        fieldname: forms.fields.bootstrap({
-            label: 'Label text',
-            help_text: 'Help text below',
-            required: true
-        })
-    });
-
-    test.equals(
-        f.toHTML(forms.render.bootstrap),
-        '<div class="control-group">' +
-            '<label class="control-label" for="id_fieldname">Label text</label>' +
-            '<div class="controls">' +
-                '<input type="text" name="fieldname" id="id_fieldname" />' +
-                '<p class="help-block">Help text below</p>' +
-            '</div>' +
-        '</div>'
-    );
-    test.done();
-};
-
-exports['bootstrap no help_text'] = function(test){
-    var f = forms.create({
-        fieldname: forms.fields.bootstrap({
-            label: 'Label text',
-            required: true
-        })
-    });
-
-    test.equals(
-        f.toHTML(forms.render.bootstrap),
-        '<div class="control-group">' +
-            '<label class="control-label" for="id_fieldname">Label text</label>' +
-            '<div class="controls">' +
-                '<input type="text" name="fieldname" id="id_fieldname" />' +
-            '</div>' +
-        '</div>'
-    );
-    test.done();
-};
-
-exports['bootstrap bound'] = function(test){
-    test.expect(1);
-    var f = forms.create({
-        fieldname: forms.fields.bootstrap({
-            label: 'Label text',
-            help_text: 'Help text below',
-            required: true
-        })
-    });
-    f.bind({fieldname: 'val'}).validate(function(err, f){
-        test.equals(
-            f.toHTML(forms.render.bootstrap),
-            '<div class="control-group">' +
-                '<label class="control-label" for="id_fieldname">Label text</label>' +
-                '<div class="controls">' +
-                    '<input type="text" name="fieldname" id="id_fieldname" value="val" />' +
-                    '<p class="help-block">Help text below</p>' +
-                '</div>' +
-            '</div>'
-        );
-    });
-    setTimeout(test.done, 25);
-};
-
-exports['bootstrap bound error'] = function(test){
-    test.expect(1);
-    var f = forms.create({
-        fieldname: forms.fields.bootstrap({
-            label: 'Label text',
-            help_text: 'Help text below',
-            required: true,
-            validators: [function(form, field, callback){
-                callback('validation error');
-            }]
-        })
-    });
-    f.bind({fieldname: 'val'}).validate(function(err, f){
-        test.equals(
-            f.toHTML(forms.render.bootstrap),
-            '<div class="control-group error">' +
-                '<label class="control-label" for="id_fieldname">Label text</label>' +
-                '<div class="controls">' +
-                    '<input type="text" name="fieldname" id="id_fieldname" value="val" />' +
-                    '<p class="help-block">Help text below</p>' +
-                '</div>' +
-            '</div>'
-        );
-    });
-    setTimeout(test.done, 25);
-};
-
-exports['bootstrap textarea'] = function(test){
-    var f = forms.create({
-        fieldname: forms.fields.bootstrap({
-            label: 'Label text',
-            help_text: 'Help text below',
-            widget: forms.widgets.textarea({rows: 6}),
-            required: true
-        })
-    });
-
-    test.equals(
-        f.toHTML(forms.render.bootstrap),
-        '<div class="control-group">' +
-            '<label class="control-label" for="id_fieldname">Label text</label>' +
-            '<div class="controls">' +
-                '<textarea name="fieldname" id="id_fieldname" rows="6"></textarea>' +
-                '<p class="help-block">Help text below</p>' +
-            '</div>' +
-        '</div>'
-    );
-
-    test.done();
-};

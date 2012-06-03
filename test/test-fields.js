@@ -171,10 +171,12 @@ exports['string toHTML'] = function(test){
     test.expect(3);
     test.equals(
         fields.string().toHTML('fieldname'),
-        '<div class="field">' +
-            '<label for="id_fieldname">Fieldname</label>' +
-            '<input type="text" name="fieldname" id="id_fieldname" />' +
-        '</div>'
+              '<div class="control-group">'
+            +   '<label class="control-label" for="id_fieldname">Fieldname</label>'
+            +   '<div class="controls">'
+            +     '<input type="text" name="fieldname" id="id_fieldname" />'
+            +   '</div>'
+            + '</div>'
     );
     var f = fields.string();
     f.widget.toHTML = function(name, field){
@@ -200,10 +202,12 @@ exports['number parse'] = function(test){
 exports['number toHTML'] = function(test){
     test.equals(
         fields.number().toHTML('fieldname'),
-        '<div class="field">' +
-            '<label for="id_fieldname">Fieldname</label>' +
-            '<input type="text" name="fieldname" id="id_fieldname" />' +
-        '</div>'
+          '<div class="control-group">' 
+        +    '<label class="control-label" for="id_fieldname">Fieldname</label>'
+        +    '<div class="controls">'
+        +       '<input type="text" name="fieldname" id="id_fieldname" />'
+        +    '</div>'
+        + '</div>'
     );
     test.done();
 };
@@ -223,10 +227,12 @@ exports['boolean parse'] = function(test){
 exports['boolean toHTML'] = function(test){
     test.equals(
         fields.boolean().toHTML('fieldname'),
-        '<div class="field">' +
-            '<label for="id_fieldname">Fieldname</label>' +
-            '<input type="checkbox" name="fieldname" id="id_fieldname" />' +
-        '</div>'
+          '<div class="control-group">'
+        +    '<label class="control-label" for="id_fieldname">Fieldname</label>'
+        +    '<div class="controls">'
+        +       '<input type="checkbox" name="fieldname" id="id_fieldname" />'
+        +    '</div>'
+        + '</div>'
     );
     test.done();
 };
@@ -339,17 +345,3 @@ exports['array toHTML'] = function(test){
     test.done();
 };
 
-testField('bootstrap');
-
-exports['bootstrap toHTML'] = function(test){
-    test.equals(
-        fields.bootstrap().toHTML('fieldname'),
-        '<div class="control-group">' +
-            '<label class="control-label" for="id_fieldname">undefined</label>' +
-            '<div class="controls">' +
-                '<input type="text" name="fieldname" id="id_fieldname" />' +
-             '</div>' +
-        '</div>'
-    );
-    test.done();
-};

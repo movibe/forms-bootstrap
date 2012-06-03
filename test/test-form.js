@@ -71,14 +71,18 @@ exports['validate valid data'] = function(test){
         test.equals(f.isValid(), true);
         test.equals(
             f.toHTML(),
-            '<div class="field">' +
-                '<label for="id_field1">Field1</label>' +
-                '<input type="text" name="field1" id="id_field1" value="1" />' +
-            '</div>' +
-            '<div class="field">' +
-                '<label for="id_field2">Field2</label>' +
-                '<input type="text" name="field2" id="id_field2" value="2" />' +
-            '</div>'
+              '<div class="control-group">'
+            +    '<label class="control-label" for="id_field1">Field1</label>'
+            +    '<div class="controls">'
+            +       '<input type="text" name="field1" id="id_field1" value="1" />'
+            +    '</div>'
+            + '</div>'
+            + '<div class="control-group">'
+            +    '<label class="control-label" for="id_field2">Field2</label>'
+            +    '<div class="controls">'
+            +       '<input type="text" name="field2" id="id_field2" value="2" />'
+            +    '</div>'
+            + '</div>'
         );
         test.done();
     });
@@ -101,15 +105,19 @@ exports['validate invalid data'] = function(test){
         test.equals(f.isValid(), false);
         test.equals(
             f.toHTML(),
-            '<div class="field error">' +
-                '<p class="error_msg">validation error 1</p>' +
-                '<label for="id_field1">Field1</label>' +
-                '<input type="text" name="field1" id="id_field1" value="1" />' +
+            '<div class="control-group error">' +
+                '<label class="control-label" for="id_field1">Field1</label>' +
+                '<div class="controls">' +
+                   '<input type="text" name="field1" id="id_field1" value="1" />' +
+                   '<span class="help-inline">validation error 1</span>' +
+                '</div>'+
             '</div>' +
-            '<div class="field error">' +
-                '<p class="error_msg">validation error 2</p>' +
-                '<label for="id_field2">Field2</label>' +
-                '<input type="text" name="field2" id="id_field2" value="2" />' +
+            '<div class="control-group error">' +
+                '<label class="control-label" for="id_field2">Field2</label>' +
+                '<div class="controls">' +
+                   '<input type="text" name="field2" id="id_field2" value="2" />' +
+                   '<span class="help-inline">validation error 2</span>' +
+                '</div>' +
             '</div>'
         );
         test.done();
@@ -262,10 +270,7 @@ exports['div'] = function(test){
     var f = forms.create({fieldname: forms.fields.string()});
     test.equals(
         f.toHTML(),
-        '<div class="field">' +
-            '<label for="id_fieldname">Fieldname</label>' +
-            '<input type="text" name="fieldname" id="id_fieldname" />' +
-        '</div>'
+        '<div class="control-group"><label class="control-label" for="id_fieldname">Fieldname</label><div class="controls"><input type="text" name="fieldname" id="id_fieldname" /></div></div>'
     );
     test.done();
 };
@@ -276,10 +281,7 @@ exports['div required'] = function(test){
     });
     test.equals(
         f.toHTML(),
-        '<div class="field required">' +
-            '<label for="id_fieldname">Fieldname</label>' +
-            '<input type="text" name="fieldname" id="id_fieldname" />' +
-        '</div>'
+        '<div class="control-group"><label class="control-label" for="id_fieldname">Fieldname</label><div class="controls"><input type="text" name="fieldname" id="id_fieldname" /></div></div>'
     );
     test.done();
 };
@@ -290,10 +292,7 @@ exports['div bound'] = function(test){
     f.bind({name: 'val'}).validate(function(err, f){
         test.equals(
             f.toHTML(),
-            '<div class="field">' +
-                '<label for="id_name">Name</label>' +
-                '<input type="text" name="name" id="id_name" value="val" />' +
-            '</div>'
+        '<div class="control-group"><label class="control-label" for="id_name">Name</label><div class="controls"><input type="text" name="name" id="id_name" value="val" /></div></div>'
         );
     });
     setTimeout(test.done, 25);
@@ -311,12 +310,7 @@ exports['div bound error'] = function(test){
     f.bind({field_name: 'val'}).validate(function(err, f){
         test.equals(
             f.toHTML(),
-            '<div class="field error">' +
-                '<p class="error_msg">validation error</p>' +
-                '<label for="id_field_name">Field name</label>' +
-                '<input type="text" name="field_name" id="id_field_name" ' +
-                'value="val" />' +
-            '</div>'
+            '<div class="control-group error"><label class="control-label" for="id_field_name">Field name</label><div class="controls"><input type="text" name="field_name" id="id_field_name" value="val" /><span class="help-inline">validation error</span></div></div>'
         );
     });
     setTimeout(test.done, 25);
