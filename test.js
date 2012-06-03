@@ -6,7 +6,7 @@
 /* Note: require.paths is removed in node v0.5 and later. Use 'NODE_PATH=`pwd`:`pwd`/deps/:`pwd`/lib/ node test.js' to run tests. */
 
 try {
-    var testrunner = require('nodeunit').testrunner;
+    var testrunner = require('nodeunit').reporters.default;
 } catch(e) {
     var sys = require('sys');
     sys.puts("Cannot find nodeunit module.");

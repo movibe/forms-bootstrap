@@ -1,23 +1,26 @@
 {
-    "name": "forms",
-    "description": "An easy way to create, parse, and validate forms",
+    "name": "forms-bootstrap",
+    "description": "An easy way to create, parse, and validate forms in Node and express.",
     "main": "./index",
-    "author": "Caolan McMahon",
-    "version": "0.1.1",
+    "author": "Caolan McMahon/Pradip P Caulagi/Mariusz Nowostawski",
+    "version": "0.0.1",
     "repository": {
         "type": "git",
-        "url": "http://github.com/caolan/forms.git"
+        "url": "http://github.com/marni/forms-bootstrap.git"
     },
     "bugs": {
-        "url": "http://github.com/caolan/forms/issues"
+        "url": "http://github.com/marni/forms-bootstrap/issues"
     },
     "dependencies": {
-        "async": "0.1.15"
+        "async": ">= 0.1.15"
+    },
+    "devDependencies": {
+        "nodeunit": ">= 0.7.0"
     },
     "licenses": [
         {
             "type": "MIT",
-            "url": "http://github.com/caolan/forms/raw/master/LICENSE"
+            "url": "http://github.com/marni/forms-bootstrap/raw/master/LICENSE"
         }
     ]
 }
