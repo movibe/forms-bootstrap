@@ -4,11 +4,9 @@
  *  You need to additionally install express, jade for this to work 
  *
  *     $ npm install express jade
-*/
+ */
 
 var http = require('http'),
-    sys = require('sys'),
-    fs = require('fs'),
     forms = require('../lib/forms'),
     express = require('express'),
     app = module.exports = express.createServer();
@@ -39,7 +37,7 @@ app.configure(function () {
 app.get('/', function (req, res) {
     res.render('page', {
         locals: {
-            title: 'Filling out the form...',
+            title: 'New user registration',
             form: reg_form.toHTML()
         }
     });
@@ -66,6 +64,6 @@ app.post('/', function (req, res) {
 });
 
 if (!module.parent) {
-    app.listen(8080);
-    sys.puts('Express server running at http://127.0.0.1:8080/');
+    app.listen(8000);
+    console.log('Express server running at http://127.0.0.1:8000/');
 }

@@ -7,6 +7,10 @@ This module is an attempt to provide the same sort of helpers for node.js
 and express, with the default bootstrap twitter rendering.
 
 
+# How to install
+
+    npm install forms-bootstrap
+
 
 ## Example
 
@@ -52,18 +56,23 @@ And this is how your user/register.jade template might look like:
                     input(type='submit', value='Create').btn.btn-large
 
 
-That's it. For more details and working examples look in the example folder 
-(but not now - this folder has not been updated yet ;)
+That's it. For more details and working examples look in the example folder.
 
+In examples folder, run:
+ * node simple-express.js
+   This one uses layout.jade and page.jade to render a simple form.
+ * node complex-express.js
+   This one uses complex.jade template and showcases a more complex form.
 
-# How to install
+# Status and todo list
 
-    npm install forms-bootstrap
+Status: development/experimental (do not use in production)
+Tests: all tests pass
 
-    Status: 
-        * development/experimental (do not use in production)
-        * examples are not ported yet, not tested
-        * all tests seem to pass
+Todo: 
+ * currently only horizontal form layout renders nicely, need to fix for vertical forms
+ * tests may not cover all the use cases
+ * integrate jquery and client-side form validation capabilities
 
 
 # Contribute

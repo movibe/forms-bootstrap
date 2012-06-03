@@ -1,14 +1,12 @@
 /*jslint node: true */
 
 /* 
- *  You need to additionally install express, jade for this to work 
+ *  You need to install express & jade for this to work. 
  *
  *     $ npm install express jade
-*/
+ */
 
 var http = require('http'),
-    sys = require('sys'),
-    fs = require('fs'),
     forms = require('../lib/forms'),
     express = require('express'),
     app = module.exports = express.createServer();
@@ -33,18 +31,18 @@ var tags = forms.widgets.text({
 var choices = { auto: 'auto', restaurant: 'restaurant', theatres: 'theatres' };
 
 var form = forms.create({
-    comment: fields.bootstrap({
+    comment: fields.string({
         label: 'Your comment is',
         widget: widgets.textarea({rows: 6}),
         required: true
     }),
-    tags: fields.bootstrap({
+    tags: fields.string({
         label: 'Tag your comment',
         widget: tags,
         help_text: 'See http://en.wikipedia.org/wiki/Tag',
         required: true
     }),
-    category: fields.bootstrap({
+    category: fields.array({
         label: 'Select appopriate category for this product',
         choices: choices,
         widget: widgets.select(),
@@ -57,19 +55,19 @@ var form = forms.create({
         }],
         required: true
     }),
-    emotion: fields.bootstrap({
+    emotion: fields.array({
         label: 'Your emotion about the product is',
         choices: { neutral: 'Neutral', happy: 'Happy', unhappy: 'Unhappy' },
         widget: widgets.select(),
         required: true
     }),
-    location: fields.bootstrap({
+    location: fields.string({
         label: 'Location (optional)'
     })
 });
 
 app.get('/', function (req, res) {
-    res.render('bootstrap', {
+    res.render('complex', {
         locals: {
             title: 'Filling out the form...',
             form: form.toHTML()
@@ -87,7 +85,7 @@ app.post('/', function (req, res) {
             });
         },
         other: function (form) {
-            res.render('bootstrap', {
+            res.render('complex', {
                 locals: {
                     title: 'Failed!',
                     form: form.toHTML()
@@ -98,6 +96,6 @@ app.post('/', function (req, res) {
 });
 
 if (!module.parent) {
-    app.listen(8080);
-    sys.puts('Express server running at http://127.0.0.1:8080/');
+    app.listen(8000);
+    console.log('Express server running at http://127.0.0.1:8000/');
 }
