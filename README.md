@@ -87,8 +87,9 @@ Fields, that are filled in when the data is available:
     value:          # the element value, always present
     help:           # help text, always
 
+    required        # is this field required?
     placeholder:    # the placeholder value
-    label:          # label name
+    label:          # label value
     error:          # the error text if validation failed
 
 
