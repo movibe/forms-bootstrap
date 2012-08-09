@@ -49,7 +49,7 @@ And this is how your user/register.jade template might look like:
     .container
         .row
             .span10
-                h2 New Dive Club registration
+                h2 New user registration
                 form(action='/user/register', method='POST').form-horizontal.well
                     != form
                     #submit
@@ -64,10 +64,41 @@ In examples folder, run:
  * node complex-express.js
    This one uses complex.jade template and showcases a more complex form.
 
+
+
+# Form data as JSON (instead of HTML)
+
+Sometimes getting the form as HTML is not the best approach. 
+there is experimental support for rendering the form fields as JSON instead of HTML.
+This allows easier integration with custom formatting on the client, and supports non-browser clients, too.
+
+For the above form example, the generated JSON would look like this:
+ {
+  name: {id: 'id_name', help: '', value: ''},
+  address: {id: 'id_address', help: '', value: ''},
+  website: {id: 'id_website', help: '', value: ''},
+  email: {id: 'id_email', help: '', value: ''}
+ }
+ 
+Fields, that are filled in when the data is available:
+
+    id:             # id of the element, always present
+    value:          # the element value, always present
+    help:           # help text, always
+
+    placeholder:    # the placeholder value
+    label:          # label name
+    error:          # the error text if validation failed
+
+
+
+
+
 # Status and todo list
 
 Status: development/experimental (do not use in production)
 Tests: all tests pass
+
 
 Todo: 
  * currently only horizontal form layout renders nicely, need to fix for vertical forms

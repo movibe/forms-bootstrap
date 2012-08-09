@@ -216,3 +216,39 @@ exports['table bound error'] = function(test){
     setTimeout(test.done, 25);
 };
 
+
+exports['string json render'] = function(test){
+    test.expect(1);
+    var f = forms.create({name: forms.fields.string()});
+    f.bind({name: 'Mariusz'}).validate(function(err, f){
+        test.equals(
+            f.toJSON(forms.render.json).name.value,
+            'Mariusz'
+        );
+    });
+    setTimeout(test.done, 25);
+};
+
+exports['url json render'] = function(test){
+    test.expect(3);
+    var f = forms.create({email: forms.fields.url({placeholder: "Please put url here"})});
+    f.bind({email: 'bad url'}).validate(function(err, f){
+        result = f.toJSON(forms.render.json);
+        test.equals(result.email.value, 'bad url');
+        test.equals(result.email.error, 'Please enter a valid URL.');
+        test.equals(result.email.placeholder, 'Please put url here');
+    });
+    setTimeout(test.done, 25);
+};
+
+exports['email json render'] = function(test){
+    test.expect(2);
+    var f = forms.create({email: forms.fields.email()});
+    f.bind({email: 'mariusz'}).validate(function(err, f){
+        result = f.toJSON(forms.render.json);
+        test.equals(result.email.value, 'mariusz');
+        test.equals(result.email.error, 'Please enter a valid email address.');
+    });
+    setTimeout(test.done, 25);
+};
+
