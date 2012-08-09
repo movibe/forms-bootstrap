@@ -66,19 +66,20 @@ In examples folder, run:
 
 
 
-# Form data as JSON (instead of HTML)
+## Form passed as JSON (instead of HTML)
 
-Sometimes getting the form as HTML is not the best approach. 
-there is experimental support for rendering the form fields as JSON instead of HTML.
+Sometimes getting the form as HTML from the server is not appropriate. 
+There is now support for rendering the form fields as JSON instead of HTML.
 This allows easier integration with custom formatting on the client, and supports non-browser clients, too.
 
 For the above form example, the generated JSON would look like this:
- {
-  name: {id: 'id_name', help: '', value: ''},
-  address: {id: 'id_address', help: '', value: ''},
-  website: {id: 'id_website', help: '', value: ''},
-  email: {id: 'id_email', help: '', value: ''}
- }
+
+  {
+    name: {id: 'id_name', help: '', value: ''},
+    address: {id: 'id_address', help: '', value: ''},
+    website: {id: 'id_website', help: '', value: ''},
+    email: {id: 'id_email', help: '', value: ''}
+  }
  
 Fields, that are filled in when the data is available:
 
