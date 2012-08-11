@@ -184,9 +184,6 @@ you will not need to use directly.
 Converts a form definition (an object literal containing field objects) into a
 form object.
 
-### forms.clear()
-
-Sets error to undefined and value to ''. 
 
 
 
@@ -208,6 +205,9 @@ Runs toHTML on each field returning the result. If an iterator is specified,
 it is called for each field with the field name and object as its arguments,
 the iterator's results are concatenated to create the HTML output, allowing
 for highly customised markup.
+
+### form.clear()
+For all fields in the form, it will set error property to undefined and value property to ''. 
 
 
 ### Bound Form object
@@ -245,6 +245,12 @@ for highly customised markup.
 * widget - A widget object to use when rendering the field
 * id - An optional id to override the default
 * choices - A list of options, used for multiple choice fields
+
+
+### field.clear()
+
+Sets error property to undefined and value property to ''. 
+
 
 #### field.parse(rawdata)
 
