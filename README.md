@@ -180,8 +180,14 @@ A more detailed look at the methods and attributes available. Most of these
 you will not need to use directly.
 
 ### forms.create(fields)
+
 Converts a form definition (an object literal containing field objects) into a
 form object.
+
+### forms.clear()
+
+Sets error to undefined and value to ''. 
+
 
 
 ### Form object

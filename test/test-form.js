@@ -315,3 +315,24 @@ exports['div bound error'] = function(test){
     });
     setTimeout(test.done, 25);
 };
+
+exports['form clear()'] = function(test){
+    test.expect(5);
+    var f = forms.create({
+        field_name: forms.fields.string({
+        validators: [function(form, field, callback){
+                callback('validation error');
+            }]
+        })
+    });
+    f.fields.field_name.value = 'value 1';
+    test.equals(f.fields.field_name.value, 'value 1');
+    f.clear();
+    test.equals(f.fields.field_name.error, undefined);
+    test.equals(f.fields.field_name.value, '');
+    f.bind({field_name: 'val'}).validate(function (err, f) {
+        test.equals(f.fields.field_name.value, 'val');
+        test.equals(f.fields.field_name.error, 'validation error');
+    });
+    setTimeout(test.done, 45);
+};
