@@ -317,7 +317,7 @@ exports['div bound error'] = function(test){
 };
 
 exports['form clear()'] = function(test){
-    test.expect(5);
+    test.expect(7);
     var f = forms.create({
         field_name: forms.fields.string({
         validators: [function(form, field, callback){
@@ -333,6 +333,9 @@ exports['form clear()'] = function(test){
     f.bind({field_name: 'val'}).validate(function (err, f) {
         test.equals(f.fields.field_name.value, 'val');
         test.equals(f.fields.field_name.error, 'validation error');
+        f.clear();
+        test.equals(f.fields.field_name.value, '');
+        test.equals(f.fields.field_name.error, undefined);
     });
     setTimeout(test.done, 45);
 };
