@@ -242,12 +242,13 @@ exports['url json render'] = function(test){
 };
 
 exports['email json render'] = function(test){
-    test.expect(2);
+    test.expect(3);
     var f = forms.create({email: forms.fields.email()});
     f.bind({email: 'mariusz'}).validate(function(err, f){
         result = f.toJSON(forms.render.json);
         test.equals(result.email.value, 'mariusz');
         test.equals(result.email.error, 'Please enter a valid email address.');
+        test.equals(result.email.name, 'email');
     });
     setTimeout(test.done, 25);
 };
